@@ -1,0 +1,37 @@
+[
+  {
+    "nome": "Ana Beatriz Souza",
+    "cpf": "529.982.247-25",
+    "salarioBruto": 2500,
+    "descontoPrevidencia": 220,
+    "dependentes": 0
+  },
+  {
+    "nome": "Carlos Eduardo Lima",
+    "cpf": "390.533.447-05",
+    "salarioBruto": 3200,
+    "descontoPrevidencia": 320,
+    "dependentes": 1
+  },
+  {
+    "nome": "Fernanda Alves Rocha",
+    "cpf": "153.509.460-56",
+    "salarioBruto": 4800,
+    "descontoPrevidencia": 480,
+    "dependentes": 2
+  },
+  {
+    "nome": "João Pedro Martins",
+    "cpf": "111.444.777-35",
+    "salarioBruto": 1800,
+    "descontoPrevidencia": 150,
+    "dependentes": 0
+  },
+  {
+    "nome": "Mariana Costa Ribeiro",
+    "cpf": "987.654.321-00",
+    "salarioBruto": 7500,
+    "descontoPrevidencia": 713.09,
+    "dependentes": 3
+  }
+]
