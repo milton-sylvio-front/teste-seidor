@@ -1,5 +1,9 @@
 import { type FormEvent, useEffect, useState } from 'react'
-import { addEmployee, cpfJaCadastrado, updateEmployee } from '../store/employeesSlice'
+import {
+  addEmployee,
+  cpfJaCadastrado,
+  updateEmployee,
+} from '../store/employeesSlice'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import type { Employee, EmployeeFormValues } from '../types/employee'
 import { cpfValido, mascararCpf } from '../utils/cpf'
@@ -62,7 +66,9 @@ export function EmployeeForm({
 
     if (!cpfValido(valores.cpf)) {
       novosErros.cpf = 'Informe um CPF válido.'
-    } else if (cpfJaCadastrado(funcionarios, valores.cpf, funcionarioEmEdicao?.id)) {
+    } else if (
+      cpfJaCadastrado(funcionarios, valores.cpf, funcionarioEmEdicao?.id)
+    ) {
       novosErros.cpf = 'Já existe um funcionário com este CPF.'
     }
 
@@ -71,9 +77,11 @@ export function EmployeeForm({
     }
 
     if (descontoPrevidencia === null || descontoPrevidencia < 0) {
-      novosErros.descontoPrevidencia = 'Informe um desconto da previdência válido.'
+      novosErros.descontoPrevidencia =
+        'Informe um desconto da previdência válido.'
     } else if (salarioBruto !== null && descontoPrevidencia > salarioBruto) {
-      novosErros.descontoPrevidencia = 'O desconto não pode ser maior que o salário bruto.'
+      novosErros.descontoPrevidencia =
+        'O desconto não pode ser maior que o salário bruto.'
     }
 
     if (
@@ -117,97 +125,115 @@ export function EmployeeForm({
   const editando = Boolean(funcionarioEmEdicao)
 
   return (
-    <form className="card form-card" onSubmit={handleSubmit} noValidate>
-      <div className="card-header">
+    <form className='card form-card' onSubmit={handleSubmit} noValidate>
+      <div className='card-header'>
         <h2>{editando ? 'Atualizar funcionário' : 'Cadastrar funcionário'}</h2>
         <p>Os descontos de IRRF são calculados automaticamente ao salvar.</p>
       </div>
 
-      <div className="form-grid">
-        <label className="field">
+      <div className='form-grid'>
+        <label className='field'>
           Nome
           <input
-            name="nome"
+            name='nome'
             value={valores.nome}
-            onChange={(event) => setValores({ ...valores, nome: event.target.value })}
+            onChange={(event) =>
+              setValores({ ...valores, nome: event.target.value })
+            }
             aria-invalid={Boolean(erros.nome)}
-            autoComplete="name"
+            autoComplete='name'
+            className={erros.nome ? 'field-error' : ''}
           />
-          {erros.nome ? <span className="field-error">{erros.nome}</span> : null}
+          {erros.nome ? (
+            <span className='field-error'>{erros.nome}</span>
+          ) : null}
         </label>
 
-        <label className="field">
+        <label className='field'>
           CPF
           <input
-            name="cpf"
+            name='cpf'
             value={valores.cpf}
             onChange={(event) =>
               setValores({ ...valores, cpf: mascararCpf(event.target.value) })
             }
-            inputMode="numeric"
-            placeholder="000.000.000-00"
+            inputMode='numeric'
+            placeholder='000.000.000-00'
             aria-invalid={Boolean(erros.cpf)}
+            className={erros.cpf ? 'field-error' : ''}
           />
-          {erros.cpf ? <span className="field-error">{erros.cpf}</span> : null}
+          {erros.cpf ? <span className='field-error'>{erros.cpf}</span> : null}
         </label>
 
-        <label className="field">
+        <label className='field'>
           Salário bruto
           <input
-            name="salarioBruto"
+            name='salarioBruto'
             value={valores.salarioBruto}
             onChange={(event) =>
               setValores({ ...valores, salarioBruto: event.target.value })
             }
-            inputMode="decimal"
-            placeholder="0,00"
+            inputMode='decimal'
+            placeholder='0,00'
             aria-invalid={Boolean(erros.salarioBruto)}
+            type='number'
+            className={erros.salarioBruto ? 'field-error' : ''}
           />
           {erros.salarioBruto ? (
-            <span className="field-error">{erros.salarioBruto}</span>
+            <span className='field-error'>{erros.salarioBruto}</span>
           ) : null}
         </label>
 
-        <label className="field">
+        <label className='field'>
           Desconto da previdência
           <input
-            name="descontoPrevidencia"
+            name='descontoPrevidencia'
             value={valores.descontoPrevidencia}
             onChange={(event) =>
-              setValores({ ...valores, descontoPrevidencia: event.target.value })
+              setValores({
+                ...valores,
+                descontoPrevidencia: event.target.value,
+              })
             }
-            inputMode="decimal"
-            placeholder="0,00"
+            inputMode='decimal'
+            placeholder='0,00'
             aria-invalid={Boolean(erros.descontoPrevidencia)}
+            type='number'
+            className={erros.descontoPrevidencia ? 'field-error' : ''}
           />
           {erros.descontoPrevidencia ? (
-            <span className="field-error">{erros.descontoPrevidencia}</span>
+            <span className='field-error'>{erros.descontoPrevidencia}</span>
           ) : null}
         </label>
 
-        <label className="field">
+        <label className='field'>
           Número de dependentes
           <input
-            name="dependentes"
+            name='dependentes'
             value={valores.dependentes}
             onChange={(event) =>
               setValores({ ...valores, dependentes: event.target.value })
             }
-            inputMode="numeric"
+            inputMode='numeric'
             aria-invalid={Boolean(erros.dependentes)}
+            className={erros.dependentes ? 'field-error' : ''}
           />
           {erros.dependentes ? (
-            <span className="field-error">{erros.dependentes}</span>
+            <span className='field-error'>{erros.dependentes}</span>
           ) : null}
         </label>
       </div>
 
-      <div className="form-actions">
-        <button type="submit" className="btn-primary">
+      <div className='form-actions'>
+        <button type='submit' className='btn-primary'>
           {editando ? 'Salvar alterações' : 'Cadastrar'}
         </button>
         {editando ? (
-          <button type="button" className="btn-secondary" onClick={onCancelarEdicao}>
+          <button
+            type='button'
+            className='btn-secondary'
+            onClick={onCancelarEdicao}
+          >
             Cancelar
           </button>
         ) : null}

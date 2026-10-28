@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import funcionariosIniciais from '../data/funcionarios.json'
 import { criarFuncionario } from '../domain/irrf'
 import type { Employee, EmployeeInput } from '../types/employee'
@@ -65,16 +65,23 @@ export const {
 
 export const employeesReducer = employeesSlice.reducer
 
-export function selectEmployeesFiltrados(state: EmployeesState): Employee[] {
-  const nomeFiltro = state.filtroNome.trim().toLowerCase()
-  const cpfFiltro = apenasDigitos(state.filtroCpf)
+export const selectEmployeesFiltrados = createSelector(
+  [
+    (state: EmployeesState) => state.items,
+    (state: EmployeesState) => state.filtroNome,
+    (state: EmployeesState) => state.filtroCpf,
+  ],
+  (items, filtroNome, filtroCpf): Employee[] => {
+    const nomeFiltro = filtroNome.trim().toLowerCase()
+    const cpfFiltro = apenasDigitos(filtroCpf)
 
-  return state.items.filter((funcionario) => {
-    const nomeOk = funcionario.nome.toLowerCase().includes(nomeFiltro)
-    const cpfOk = apenasDigitos(funcionario.cpf).includes(cpfFiltro)
-    return nomeOk && cpfOk
-  })
-}
+    return items.filter((funcionario) => {
+      const nomeOk = funcionario.nome.toLowerCase().includes(nomeFiltro)
+      const cpfOk = apenasDigitos(funcionario.cpf).includes(cpfFiltro)
+      return nomeOk && cpfOk
+    })
+  },
+)
 
 export function cpfJaCadastrado(
   items: Employee[],

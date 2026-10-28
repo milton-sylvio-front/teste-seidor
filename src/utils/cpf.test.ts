@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest'
 import { cpfValido, mascararCpf } from './cpf'
 
 describe('cpf', () => {

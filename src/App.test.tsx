@@ -1,6 +1,5 @@
 import { screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { criarFuncionario } from './domain/irrf'
 import { renderWithStore } from './test/renderWithStore'
@@ -54,9 +53,10 @@ describe('gestão de funcionários', () => {
     await user.type(screen.getByLabelText('Número de dependentes'), '1')
     await user.click(screen.getByRole('button', { name: 'Cadastrar' }))
 
-    expect(screen.getByText('Carlos Eduardo Lima')).toBeInTheDocument()
-    expect(screen.getByText('390.533.447-05')).toBeInTheDocument()
-    expect(screen.getByText(formatarMoeda(32.34))).toBeInTheDocument()
+    const linha = screen.getByRole('row', { name: /Carlos Eduardo Lima/ })
+
+    expect(linha).toHaveTextContent('390.533.447-05')
+    expect(linha).toHaveTextContent(formatarMoeda(32.34).replace(/\s/g, ' '))
   })
 
   it('filtra a lista por nome e CPF', async () => {
@@ -97,7 +97,7 @@ describe('gestão de funcionários', () => {
 
   it('atualiza e exclui um funcionário cadastrado', async () => {
     const user = userEvent.setup()
-    vi.spyOn(window, 'confirm').mockReturnValue(true)
+    jest.spyOn(window, 'confirm').mockReturnValue(true)
 
     renderWithStore(<App />, {
       preloadedState: {
