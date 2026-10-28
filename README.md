@@ -19,13 +19,13 @@ Desconto IRRF   = Salário Base IR × Alíquota - Parcela a deduzir
 
 Faixas utilizadas:
 
-| Base de cálculo              | Alíquota | Parcela a deduzir |
-| ---------------------------- | -------- | ----------------- |
-| Até R$ 2.259,20              | Isento   | R$ 0,00           |
-| De R$ 2.259,21 até R$ 2.826,65 | 7,5%   | R$ 169,44         |
-| De R$ 2.826,66 até R$ 3.751,05 | 15%    | R$ 381,44         |
-| De R$ 3.751,06 até R$ 4.664,68 | 22,5%  | R$ 662,77         |
-| Acima de R$ 4.664,68         | 27,5%    | R$ 896,00         |
+| Base de cálculo                | Alíquota | Parcela a deduzir |
+| ------------------------------ | -------- | ----------------- |
+| Até R$ 2.259,20                | Isento   | R$ 0,00           |
+| De R$ 2.259,21 até R$ 2.826,65 | 7,5%     | R$ 169,44         |
+| De R$ 2.826,66 até R$ 3.751,05 | 15%      | R$ 381,44         |
+| De R$ 3.751,06 até R$ 4.664,68 | 22,5%    | R$ 662,77         |
+| Acima de R$ 4.664,68           | 27,5%    | R$ 896,00         |
 
 ## Stack
 
@@ -48,6 +48,12 @@ A aplicação sobe em `http://localhost:5173`.
 
 ```bash
 npm test
+```
+
+## Como verificar erros de lint
+
+```bash
+npm run lint
 ```
 
 Build de produção:
