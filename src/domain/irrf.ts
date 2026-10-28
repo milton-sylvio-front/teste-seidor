@@ -56,7 +56,7 @@ export function calcularImpostos(input: EmployeeInput) {
 
 export function criarFuncionario(
   input: EmployeeInput,
-  id = crypto.randomUUID(),
+  id: string = crypto.randomUUID(),
 ): Employee {
   return {
     id,

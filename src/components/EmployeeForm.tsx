@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 import {
   addEmployee,
   cpfJaCadastrado,
@@ -40,19 +40,24 @@ export function EmployeeForm({
 }: EmployeeFormProps) {
   const dispatch = useAppDispatch()
   const funcionarios = useAppSelector((state) => state.employees.items)
-  const [valores, setValores] = useState<EmployeeFormValues>(FORMULARIO_VAZIO)
+  const [valores, setValores] = useState<EmployeeFormValues>(() =>
+    funcionarioEmEdicao
+      ? preencherFormulario(funcionarioEmEdicao)
+      : FORMULARIO_VAZIO,
+  )
   const [erros, setErros] = useState<FormErrors>({})
+  const [funcionarioSincronizado, setFuncionarioSincronizado] =
+    useState(funcionarioEmEdicao)
 
-  useEffect(() => {
-    if (funcionarioEmEdicao) {
-      setValores(preencherFormulario(funcionarioEmEdicao))
-      setErros({})
-      return
-    }
-
-    setValores(FORMULARIO_VAZIO)
+  if (funcionarioEmEdicao !== funcionarioSincronizado) {
+    setFuncionarioSincronizado(funcionarioEmEdicao)
+    setValores(
+      funcionarioEmEdicao
+        ? preencherFormulario(funcionarioEmEdicao)
+        : FORMULARIO_VAZIO,
+    )
     setErros({})
-  }, [funcionarioEmEdicao])
+  }
 
   function validar(): FormErrors {
     const novosErros: FormErrors = {}
