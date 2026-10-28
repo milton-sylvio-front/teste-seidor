@@ -216,6 +216,7 @@ export function EmployeeForm({
             }
             inputMode='numeric'
             aria-invalid={Boolean(erros.dependentes)}
+            type='number'
             className={erros.dependentes ? 'field-error' : ''}
           />
           {erros.dependentes ? (

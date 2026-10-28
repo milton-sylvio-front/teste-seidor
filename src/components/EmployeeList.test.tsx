@@ -70,8 +70,9 @@ describe('EmployeeList', () => {
     expect(screen.queryByText('Ana Beatriz Souza')).not.toBeInTheDocument()
   })
 
-  it('chama onEditar ao clicar em Editar', async () => {
+  it('chama onEditar e rola para o topo ao clicar em Editar', async () => {
     const onEditar = jest.fn()
+    const scrollTo = jest.spyOn(window, 'scrollTo').mockImplementation(() => {})
     const user = userEvent.setup()
 
     renderWithStore(<EmployeeList onEditar={onEditar} />, {
@@ -81,6 +82,7 @@ describe('EmployeeList', () => {
     await user.click(screen.getByRole('button', { name: 'Editar' }))
 
     expect(onEditar).toHaveBeenCalledWith(funcionario)
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' })
   })
 
   it('exclui o funcionário quando a exclusão é confirmada', async () => {

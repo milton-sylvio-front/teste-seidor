@@ -8,14 +8,17 @@
     "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "node scripts/run-jest.cjs",
+    "test:watch": "node scripts/run-jest.cjs --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-redux": "^9.3.1"
+  },
+  "engines": {
+    "node": ">=18.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -13,6 +13,11 @@ export function EmployeeList({ onEditar }: EmployeeListProps) {
     selectEmployeesFiltrados(state.employees),
   )
 
+  function handleEditar(funcionario: Employee) {
+    onEditar(funcionario)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   function handleExcluir(funcionario: Employee) {
     const confirmar = window.confirm(
       `Excluir o funcionário ${funcionario.nome}? Esta ação não pode ser desfeita.`,
@@ -61,7 +66,7 @@ export function EmployeeList({ onEditar }: EmployeeListProps) {
                     <button
                       type="button"
                       className="btn-link"
-                      onClick={() => onEditar(funcionario)}
+                      onClick={() => handleEditar(funcionario)}
                     >
                       Editar
                     </button>
